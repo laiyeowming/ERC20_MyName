@@ -1,4 +1,4 @@
-## Web app for Ethereum ##
+## Web app for ERC20 ##
 <img src="https://raw.githubusercontent.com/laiyeowming/ERC20_MyName/main/images/Dapp1.png" height="500px"> <img src="https://raw.githubusercontent.com/laiyeowming/ERC20_MyName/main/images/Dapp2.png" height="500px">
 
 Purpose is to interact with Ethereum blockchain from Javascript, through Infura.
