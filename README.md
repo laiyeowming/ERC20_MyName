@@ -15,3 +15,6 @@ https://web3js.readthedocs.io/en/v1.4.0/getting-started.html
 
 3. Refer to web3 documentation for the function for web3.eth.
 https://web3js.readthedocs.io/en/v1.4.0/web3-eth.html#getbalance
+
+4. Reference to Etherscan.Ropsten:
+- https://ropsten.etherscan.io/address/0xB3c1f0c0a675BE2e1c66C3E37657590AeA12A364
