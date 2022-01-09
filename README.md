@@ -17,4 +17,4 @@ https://web3js.readthedocs.io/en/v1.4.0/getting-started.html
 https://web3js.readthedocs.io/en/v1.4.0/web3-eth.html#getbalance
 
 4. Reference to Etherscan.Ropsten:
-- https://ropsten.etherscan.io/address/0xB3c1f0c0a675BE2e1c66C3E37657590AeA12A364
+https://ropsten.etherscan.io/address/0xB3c1f0c0a675BE2e1c66C3E37657590AeA12A364
