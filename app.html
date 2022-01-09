@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <script src='node_modules/web3/dist/web3.min.js'></script>
+    <link rel="stylesheet" href="style.css" />
+    <title>NUS Money</title>
+  </head>
+  <body>
+    <h2> ERC20 Token, LaiYM</h2>
+    <div class="container">
+      <h4>Your Wallet Balance</h4>
+      <h1 id="balanceEth">0.000000000000000000</h1><br><br>
+      <h4 id="nameTok">Your Contracts Token</h4>
+      <h1 id="balanceTok">0.000000000000000000</h1>
+      <h4>out of total supply of</h4>
+      <h1 id="totalTok">0.000000000000000000</h1>
+      <h4>capped at</h4>
+      <h1 id="cappedTok">0.0000000000000000000</h1>
+    </div>
+    <form style="padding-top: 50px">
+      <div class="form-control"> 
+        <input type="text" id="wallet" placeholder="Enter Wallet Address..." />
+        <input type="text" id="contract" placeholder="Enter Contract Address..." />
+      </div>
+      <button type="button" class="btn" onclick="init()">Submit</button>
+    </form>
+
+    <script type="text/javascript"> 
+      function init(){
+          var url = {`https://ropsten.infura.io/v3/${projectId}`}; //using Infura as a client to create a node 
+          var web3 = new Web3(url);
+          var address = document.getElementById('wallet').value;
+          
+          web3.eth.getBalance(address, (err, bal) => {
+              balEther = web3.utils.fromWei(bal, 'ether');
+              balanceEth.innerHTML = balEther;
+          });
+
+          const abi = [{"constant":true,"inputs":[],"name":"mintingFinished","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"name","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_spender","type":"address"},{"name":"_value","type":"uint256"}],"name":"approve","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"totalSupply","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_from","type":"address"},{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transferFrom","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"decimals","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"unpause","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"}],"name":"mint","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"paused","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"}],"name":"balanceOf","outputs":[{"name":"balance","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"finishMinting","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":false,"inputs":[],"name":"pause","outputs":[{"name":"","type":"bool"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"owner","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"symbol","outputs":[{"name":"","type":"string"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_value","type":"uint256"}],"name":"transfer","outputs":[],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"_to","type":"address"},{"name":"_amount","type":"uint256"},{"name":"_releaseTime","type":"uint256"}],"name":"mintTimelocked","outputs":[{"name":"","type":"address"}],"payable":false,"type":"function"},{"constant":true,"inputs":[{"name":"_owner","type":"address"},{"name":"_spender","type":"address"}],"name":"allowance","outputs":[{"name":"remaining","type":"uint256"}],"payable":false,"type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"transferOwnership","outputs":[],"payable":false,"type":"function"},{"anonymous":false,"inputs":[{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Mint","type":"event"},{"anonymous":false,"inputs":[],"name":"MintFinished","type":"event"},{"anonymous":false,"inputs":[],"name":"Pause","type":"event"},{"anonymous":false,"inputs":[],"name":"Unpause","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"owner","type":"address"},{"indexed":true,"name":"spender","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"from","type":"address"},{"indexed":true,"name":"to","type":"address"},{"indexed":false,"name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"constant":true,"inputs":[],"name":"cap","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"}]
+
+          var token = document.getElementById('contract').value;
+          let contract = new web3.eth.Contract(abi, token);
+          contract.methods.symbol().call((err, nTok) => {
+            nameTok.innerHTML = `Your Contracts Token, ${nTok}`;
+          });
+          
+          contract.methods.balanceOf(address).call((err, balT) => {
+            balTok = web3.utils.fromWei(balT, 'ether');
+            balanceTok.innerHTML = balTok;
+          });
+
+          contract.methods.totalSupply().call((err, totT) => {
+            totTok = web3.utils.fromWei(totT, 'ether');
+            totalTok.innerHTML = totTok;
+          });
+
+          
+          contract.methods.cap().call((err, capT) => {
+            capTok = web3.utils.fromWei(capT, 'ether');
+            cappedTok.innerHTML = capTok});
+
+        };
+    </script>
+  </body>
+</html>
